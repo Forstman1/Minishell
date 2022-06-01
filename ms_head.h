@@ -45,6 +45,7 @@ typedef struct s_env
 typedef struct s_arg
 {
 	char	*str;
+	char	**paths;
 } t_arg;
 
 
@@ -64,6 +65,7 @@ void	cd_home(t_env *env, t_arg *arg);
 void	cd_root(t_env *env, t_arg *arg);
 void	cd_samdir(t_env *env, t_arg *arg);
 void	cd_dash(t_env *env, t_arg *arg);
+void	pipes(t_env	*env, t_arg *arg)
 
 
 

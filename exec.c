@@ -51,17 +51,18 @@ int	main(int ac, char **av, char **env)
 		i++;
 	create_env(&envi, env, i);
 	arg.str = av[1];
-	cd_env(envi, &arg);
-	// pipes();
+	pipes(envi, &arg);
+
+	//cd_env(envi, &arg);
 	// unset_env(&envi, av[1]);
 	// export_env(&envi, av[1]);
 	// exit1();
 	
-	while (envi)
-	{
-		printf("%s=%s\n", envi->key ,envi->value);
-		envi = envi->next;
-	}
+	// while (envi)
+	// {
+	// 	printf("%s=%s\n", envi->key ,envi->value);
+	// 	envi = envi->next;
+	// }
 
 	return (0);
 }

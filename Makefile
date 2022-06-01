@@ -44,7 +44,8 @@ export TITLE
 
 CFILES  = utils1.c srcs/builtins/echo.c srcs/builtins/exit.c srcs/builtins/pwd.c srcs/builtins/cd.c srcs/utils/utils2.c \
 			srcs/builtins/cd/cd_back.c srcs/builtins/cd/cd_path.c srcs/builtins/cd/cd_home.c srcs/builtins/cd/cd_root.c \
-			srcs/builtins/cd/cd_samdir.c srcs/builtins/cd/cd_dash.c
+			srcs/builtins/cd/cd_samdir.c srcs/builtins/cd/cd_dash.c \
+			srcs/pipes/pipe.c
 
 OFILES	= $(CFILES:.c=.o)
 
