@@ -20,6 +20,7 @@ void	cd_home(t_env *env, t_arg *arg)
 	char	*home;
 	
 	lst = env;
+	
 	while (lst)
 	{
 		if (!ft_strcmp(lst->key, "HOME"))

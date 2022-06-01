@@ -26,7 +26,7 @@ void	cd_back(t_env *env, t_arg *arg)
 	if (chdir(current_pwd))
 	{
 		free(current_pwd);
-		printf("error\n");
+		printf("no sush file or directory %s\n", current_pwd);
 		return ;
 	}
 	while (lst)
@@ -51,3 +51,5 @@ void	cd_back(t_env *env, t_arg *arg)
 		lst = lst->next;
 	}
 }
+
+

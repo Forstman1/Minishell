@@ -63,6 +63,7 @@ void	cd_back(t_env *env, t_arg *arg);
 void	cd_home(t_env *env, t_arg *arg);
 void	cd_root(t_env *env, t_arg *arg);
 void	cd_samdir(t_env *env, t_arg *arg);
+void	cd_dash(t_env *env, t_arg *arg);
 
 
 

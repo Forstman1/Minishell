@@ -21,6 +21,11 @@ void	create_env(t_env **env, char **envirement, int i)
 	char	*value;
 
 	j = 0;
+	if (i == 0)
+	{
+		printf("env not set\n");
+		exit(0);
+	}
 	while (i > 0)
 	{
 		value = ft_strdup(ft_strchr(envirement[j], '=') + 1);
