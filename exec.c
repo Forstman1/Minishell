@@ -12,7 +12,6 @@
 
 #include "ms_head.h"
 
-
 void	create_env(t_env **env, char **envirement, int i)
 {
 	t_env	*lst;
@@ -21,11 +20,6 @@ void	create_env(t_env **env, char **envirement, int i)
 	char	*value;
 
 	j = 0;
-	if (i == 0)
-	{
-		printf("env not set\n");
-		exit(0);
-	}
 	while (i > 0)
 	{
 		value = ft_strdup(ft_strchr(envirement[j], '=') + 1);
@@ -50,19 +44,8 @@ int	main(int ac, char **av, char **env)
 	while (env[i])
 		i++;
 	create_env(&envi, env, i);
-	arg.str = av[1];
-	pipes(envi, &arg);
-
-	//cd_env(envi, &arg);
-	// unset_env(&envi, av[1]);
-	// export_env(&envi, av[1]);
-	// exit1();
-	
-	// while (envi)
-	// {
-	// 	printf("%s=%s\n", envi->key ,envi->value);
-	// 	envi = envi->next;
-	// }
+	arg.args = av;
+	check_command(envi, &arg);
 
 	return (0);
 }

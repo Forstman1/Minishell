@@ -16,6 +16,7 @@
 /* ---------------------------------- Libraries ----------------------------- */
 #include <unistd.h>
 #include <stdlib.h>
+#include <fcntl.h> 
 #include <stdio.h>
 #include "libft/libft.h"
 #include <readline/readline.h>
@@ -44,30 +45,54 @@ typedef struct s_env
 
 typedef struct s_arg
 {
+	char	**args;
 	char	*str;
 	char	**paths;
+	char	*cmd_path;
+	char	**cmd;
+	int		fd[2];
+	int		i;
 } t_arg;
+
+
+/* ------------------------------ Utils functions ---------------------------- */
 
 
 void	ft_lstadd_back1(t_env **lst, t_env *new);
 t_env	*ft_lstnew1(char *key, char *value);
 char	*get_keys(char *str, int c);
-char	*pwd(t_env *env);
+int		ft_strcmp(char *s1, char *s2);
+char	*ft_strrchr1(char *str, int c);
+
+
+
+/* --------------------------------- builtins --------------------------------- */
+
+char	*pwd(t_env *env, int i);
 void	export_env(t_env **env, char *find);
 void	unset_env(t_env **env, char *find);
-int		ft_strcmp(char *s1, char *s2);
-void	pipes();
+void	env(t_env *env);
+void	exit10(void);
+
 void	cd_env(t_env *env, t_arg *arg);
 void	cd_path(t_env *env, t_arg *arg);
-char	*ft_strrchr1(char *str, int c);
 void	cd_back(t_env *env, t_arg *arg);
 void	cd_home(t_env *env, t_arg *arg);
 void	cd_root(t_env *env, t_arg *arg);
 void	cd_samdir(t_env *env, t_arg *arg);
 void	cd_dash(t_env *env, t_arg *arg);
-void	pipes(t_env	*env, t_arg *arg)
 
 
 
-/* --------------------------------- Prototypes ----------------------------- */
+/* --------------------------------- Pipes --------------------------------- */
+
+void	check_command(t_env	*env, t_arg *arg);
+void	check_cmd(t_env	*env, t_arg *arg, char *str);
+void	check_path(t_env	*env, t_arg *arg);
+void	execute_func(t_env	*env, t_arg *arg);
+int		builtins(t_env	*envi, char *str);
+void	check_command(t_env	*env, t_arg *arg);
+void	check_cmd(t_env	*env, t_arg *arg, char *str);
+
+
 #endif 

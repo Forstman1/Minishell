@@ -29,7 +29,7 @@ void	cd_dash(t_env *env, t_arg *arg)
 			{
 				OLDPWD = lst->value;
 				printf("%s\n", OLDPWD);
-				lst->value = pwd(env);
+				lst->value = pwd(env, 0);
 			}
 			i = 0;
 			break ;

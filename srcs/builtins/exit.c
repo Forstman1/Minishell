@@ -12,7 +12,7 @@
 
 #include "../../ms_head.h"
 
-void	exit1(void)
+void	exit10(void)
 {
 	printf("exit\n");
 	exit(0);

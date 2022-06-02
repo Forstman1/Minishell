@@ -26,17 +26,17 @@ void	cd_path(t_env *env, t_arg *arg)
 	i = 0;
 	if (arg->str[0] != '/' && arg->str[0] != '.')
 	{
-		newdir = ft_strjoin(pwd(env), "/");
+		newdir = ft_strjoin(pwd(env, 0), "/");
 		newdir = ft_strjoin(newdir, arg->str);
 	}
 	else if  (arg->str[0] == '/')
 		newdir = arg->str;
 	else if (arg->str[0] == '.' && arg->str[1] == '/' && arg->str[2] != '\0')
-		newdir = ft_strjoin(pwd(env), ft_substr(arg->str, 1, ft_strlen(arg->str) - 1));
+		newdir = ft_strjoin(pwd(env, 0), ft_substr(arg->str, 1, ft_strlen(arg->str) - 1));
 	else if (arg->str[0] == '.' && arg->str[1] == '.' && arg->str[2] == '/' && arg->str[3] != '\0')
 	{
 		cd_back(env, arg);
-		newdir = ft_strjoin(pwd(env), ft_substr(arg->str, 2, ft_strlen(arg->str) - 2));
+		newdir = ft_strjoin(pwd(env, 0), ft_substr(arg->str, 2, ft_strlen(arg->str) - 2));
 		i = 1;
 	}
 	if (chdir(newdir))
@@ -56,7 +56,7 @@ void	cd_path(t_env *env, t_arg *arg)
 		}
 		lst = lst->next;
 	}
-	if (!pwd(env))
+	if (!pwd(env, 0))
 	{
 		printf("commad not found\n");
 		exit(0);

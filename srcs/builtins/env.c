@@ -1,41 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By:  <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sahafid <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/27 18:19:40 by            #+#    #+#             */
-/*   Updated: 2022/05/27 18:19:41 by           ###   ########.fr       */
+/*   Created: 2022/06/02 20:23:50 by sahafid           #+#    #+#             */
+/*   Updated: 2022/06/02 20:23:51 by sahafid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../ms_head.h"
 
-char	*pwd(t_env *env, int i)
+void	env(t_env *env)
 {
-	t_env *lst;
+	int		i;
+	t_env	*lst;
 
+	i = 0;
 	lst = env;
 	while (lst)
 	{
-		if (!ft_strcmp(lst->key, "PWD"))
-		{
-			if (lst->value)
-			{
-				if (i == 1)
-					printf("%s\n", lst->value);
-				return (lst->value);
-			}
-			else
-			{
-				if (i == 1)
-					printf("pwd is not set\n");
-				return (NULL);
-			}
-		}
+		printf("%s=%s\n", lst->key, lst->value);
 		lst = lst->next;
+		i++;
 	}
-	return (NULL);
+	if (i == 0)
+	{
+		printf("env not set\n");
+		return ;
+	}
 }

@@ -21,7 +21,7 @@ void	cd_back(t_env *env, t_arg *arg)
 	
 	lst = env;
 	
-	current_pwd = ft_strdup(pwd(env));
+	current_pwd = ft_strdup(pwd(env, 0));
 	current_pwd = ft_strrchr1(current_pwd, '/');
 	if (chdir(current_pwd))
 	{

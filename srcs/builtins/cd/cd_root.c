@@ -35,7 +35,7 @@ void	cd_root(t_env *env, t_arg *arg)
 		}
 		lst = lst->next;
 	}
-	if (!pwd(env))
+	if (!pwd(env, 0))
 	{
 		printf("commad not found\n");
 		exit(0);
