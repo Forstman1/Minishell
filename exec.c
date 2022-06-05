@@ -22,8 +22,10 @@ void	create_env(t_env **env, char **envirement, int i)
 	j = 0;
 	while (i > 0)
 	{
-		value = ft_strdup(ft_strchr(envirement[j], '=') + 1);
-		key = ft_strdup(get_keys(envirement[j], '='));
+		value = ft_strdup(envirement[j]);
+		value = ft_strchr(value, '=') + 1;
+		key = ft_strdup(envirement[j]);
+		key = get_keys(key, '=');
 		lst = ft_lstnew1(key, value);
 		ft_lstadd_back1(env, lst);
 		j++;
@@ -37,15 +39,18 @@ int	main(int ac, char **av, char **env)
 	t_env	*envi;
 	t_arg	arg;
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
 	while (env[i])
 		i++;
 	create_env(&envi, env, i);
-	arg.args = av;
-	check_command(envi, &arg);
-
+	while (1)
+	{
+		arg.str = readline("Minishell  ");
+		arg.args = ft_split(arg.str, '|');
+		check_command(envi, &arg);
+		free(arg.str);
+		arg.str = NULL;
+	}
 	return (0);
 }

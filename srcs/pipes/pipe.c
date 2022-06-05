@@ -58,11 +58,8 @@ void	check_cmd(t_env	*env, t_arg *arg, char *str)
 
 	i = 0;
 	arg->i++;
-	if (arg->i == 2)
-	{
-		pipe(arg->fd);
-		dup2(arg->fd[1], 0);
-	}
+	arg->cmd = ft_split(str, ' ');
+	str = arg->cmd[0];
 	while (arg->paths[i])
 	{
 		cmd_path = ft_strjoin(arg->paths[i], "/");
@@ -72,40 +69,47 @@ void	check_cmd(t_env	*env, t_arg *arg, char *str)
 		if (!access(cmd_path, X_OK))
 		{
 			arg->cmd_path = cmd_path;
-			arg->cmd = ft_split(str, ' ');
 			return ;
 		}
 		i++;
 	}
-	printf("Command if not found\n");
+	printf("Command not found\n");
 	exit(0);
 }
 
 int	builtins(t_env	*envi, char *str)
 {
-	if (!ft_strcmp(str, "pwd"))
+	char	**splited;
+
+	splited = ft_split(str, ' ');
+	if (!ft_strcmp1(splited[0], "pwd"))
 	{
 		pwd(envi, 1);
 		return (1);
 	}
-	else if (!ft_strcmp(str, "export"))
+	else if (!ft_strcmp(splited[0], "export"))
 	{
-		export_env(&envi, str);
+		export_env(&envi, splited[0], splited[1]);
 		return (1);
 	}
-	else if (!ft_strcmp(str, "unset"))
+	else if (!ft_strcmp(splited[0], "unset"))
 	{
-		unset_env(&envi, str);
+		unset_env(&envi, splited[0], splited[1]);
 		return (1);
 	}
-	else if (!ft_strcmp(str, "env"))
+	else if (!ft_strcmp1(splited[0], "env"))
 	{
 		env(envi);
 		return (1);
 	}
-	else if (!ft_strcmp(str, "exit"))
+	else if (!ft_strcmp(splited[0], "exit"))
 	{
 		exit10();
+	}
+	else if (!ft_strcmp(splited[0], "cd"))
+	{
+		cd_env(envi, splited[0], splited[1]);
+		return (1);
 	}
 	return (0);
 }
@@ -116,14 +120,12 @@ void	check_command(t_env	*env, t_arg *arg)
 	int i;
 
 	lst = env;
-	i = 1;
+	i = 0;
 	arg->i = 0;
 	check_path(env, arg);
 	while (arg->args[i])
 	{
-		if (!ft_strcmp(arg->args[i], "|") || !ft_strcmp(arg->args[i], ">"))
-			i++;
-		else if (builtins(env, arg->args[i]))
+		if (builtins(env, arg->args[i]))
 			i++;
 		else
 		{

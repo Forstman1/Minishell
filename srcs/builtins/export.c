@@ -13,7 +13,7 @@
 
 #include "../../ms_head.h"
 
-void	export_env(t_env **env, char *find)
+void	export_env(t_env **env, char *str, char *find)
 {
 	t_env	*lst;
 	char	*key;

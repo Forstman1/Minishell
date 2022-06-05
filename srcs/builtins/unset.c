@@ -13,7 +13,7 @@
 
 #include "../../ms_head.h"
 
-void	unset_env(t_env **env, char *find)
+void	unset_env(t_env **env, char *str, char *find)
 {
 	t_env *lst;
 	t_env *tmp;

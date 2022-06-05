@@ -52,17 +52,18 @@ OFILES	= $(CFILES:.c=.o)
 
 CC	= gcc
 INT	= ms_head.h
-# FLAGS = -Wall -Wextra -Werror
+FLAGS = -lreadline  -I .brew/opt/readline/include
 NAME = minishell
 ARCHIVE = libft/libft.a
 
 all : $(NAME)
 
 $(NAME) : title $(OFILES) exec.c 
-	@$(CC) $(FLAGS) exec.c $(ARCHIVE) $(OFILES) -o minishell 
+	@$(CC) $(FLAGS)  exec.c $(ARCHIVE) $(OFILES) -o minishell 
+	@make clean
 
 %.o:%.c
-	@$(CC) $(FLAGS) -o $@ -c $<
+	@$(CC) -o $@ -c $<
 
 clean: title
 	@rm -f $(OFILES)

@@ -43,6 +43,18 @@ typedef struct s_env
 	struct s_env	*next;
 } t_env;
 
+
+
+typedef struct s_token
+{
+	char id;// cmd
+	char *arg;//<< 
+	char **switchs;
+	char *dlm;
+	char *file;
+} t_token;
+
+
 typedef struct s_arg
 {
 	char	**args;
@@ -62,6 +74,7 @@ void	ft_lstadd_back1(t_env **lst, t_env *new);
 t_env	*ft_lstnew1(char *key, char *value);
 char	*get_keys(char *str, int c);
 int		ft_strcmp(char *s1, char *s2);
+int		ft_strcmp1(char *s1, char *s2);
 char	*ft_strrchr1(char *str, int c);
 
 
@@ -69,18 +82,18 @@ char	*ft_strrchr1(char *str, int c);
 /* --------------------------------- builtins --------------------------------- */
 
 char	*pwd(t_env *env, int i);
-void	export_env(t_env **env, char *find);
-void	unset_env(t_env **env, char *find);
+void	export_env(t_env **env, char *str, char *find);
+void	unset_env(t_env **env, char *str, char *find);
 void	env(t_env *env);
 void	exit10(void);
 
-void	cd_env(t_env *env, t_arg *arg);
-void	cd_path(t_env *env, t_arg *arg);
-void	cd_back(t_env *env, t_arg *arg);
-void	cd_home(t_env *env, t_arg *arg);
-void	cd_root(t_env *env, t_arg *arg);
-void	cd_samdir(t_env *env, t_arg *arg);
-void	cd_dash(t_env *env, t_arg *arg);
+void	cd_env(t_env *env, char	*str, char *arg);
+void	cd_path(t_env *env, char *arg);
+void	cd_back(t_env *env, char *arg);
+void	cd_home(t_env *env, char *arg);
+void	cd_root(t_env *env, char *arg);
+void	cd_samdir(t_env *env, char *arg);
+void	cd_dash(t_env *env, char *arg);
 
 
 

@@ -13,7 +13,7 @@
 
 #include "../../../ms_head.h"
 
-void	cd_root(t_env *env, t_arg *arg)
+void	cd_root(t_env *env, char *arg)
 {
 	t_env	*lst;
 	char	*OLDPWD;

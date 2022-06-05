@@ -13,14 +13,13 @@
 
 #include "../../../ms_head.h"
 
-void	cd_back(t_env *env, t_arg *arg)
+void	cd_back(t_env *env, char *arg)
 {
 	t_env	*lst;
 	char	*current_pwd;
 	char	*OLDPWD;
 	
 	lst = env;
-	
 	current_pwd = ft_strdup(pwd(env, 0));
 	current_pwd = ft_strrchr1(current_pwd, '/');
 	if (chdir(current_pwd))

@@ -13,7 +13,7 @@
 
 #include "../../../ms_head.h"
 
-void	cd_path(t_env *env, t_arg *arg)
+void	cd_path(t_env *env, char *arg)
 {
 	t_env	*lst;
 	char	*OLDPWD;
@@ -24,19 +24,19 @@ void	cd_path(t_env *env, t_arg *arg)
 	
 	lst = env;
 	i = 0;
-	if (arg->str[0] != '/' && arg->str[0] != '.')
+	if (arg[0] != '/' && arg[0] != '.')
 	{
 		newdir = ft_strjoin(pwd(env, 0), "/");
-		newdir = ft_strjoin(newdir, arg->str);
+		newdir = ft_strjoin(newdir, arg);
 	}
-	else if  (arg->str[0] == '/')
-		newdir = arg->str;
-	else if (arg->str[0] == '.' && arg->str[1] == '/' && arg->str[2] != '\0')
-		newdir = ft_strjoin(pwd(env, 0), ft_substr(arg->str, 1, ft_strlen(arg->str) - 1));
-	else if (arg->str[0] == '.' && arg->str[1] == '.' && arg->str[2] == '/' && arg->str[3] != '\0')
+	else if  (arg[0] == '/')
+		newdir = arg;
+	else if (arg[0] == '.' && arg[1] == '/' && arg[2] != '\0')
+		newdir = ft_strjoin(pwd(env, 0), ft_substr(arg, 1, ft_strlen(arg) - 1));
+	else if (arg[0] == '.' && arg[1] == '.' && arg[2] == '/' && arg[3] != '\0')
 	{
 		cd_back(env, arg);
-		newdir = ft_strjoin(pwd(env, 0), ft_substr(arg->str, 2, ft_strlen(arg->str) - 2));
+		newdir = ft_strjoin(pwd(env, 0), ft_substr(arg, 2, ft_strlen(arg) - 2));
 		i = 1;
 	}
 	if (chdir(newdir))
