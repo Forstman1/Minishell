@@ -60,7 +60,7 @@ ARCHIVE = libft/libft.a
 all : $(NAME)
 
 $(NAME) : title $(OFILES) exec.c 
-	@$(CC) $(FLAGS)  exec.c $(ARCHIVE) $(OFILES) -o minishell 
+	@$(CC) $(FLAGS)  exec.c $(ARCHIVE) $(CFILES) -o minishell -g
 	@make clean
 
 %.o:%.c

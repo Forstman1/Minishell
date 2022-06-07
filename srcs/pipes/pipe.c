@@ -22,18 +22,20 @@ void	execute_func(t_env	*env, t_arg *arg, int j)
 	if (i == 0)
 	{
 		if (j == 1)
-			dup2(arg->fd[1], 1);
-		else if (j == 2)
 		{
-			dup2(arg->fd[0], 0);
-			dup2(arg->fd1[1], 1);
+			dup2(arg->fd[1], 1);
+			dup2(arg->in_fd, 0);
+			close(arg->fd[1]);
 		}
 		else
 		{
-			dup2(arg->fd1[0], 0);
+			dup2(arg->in_fd, 0);
+			// dup2(arg->fd[1], 1);
+			// close(arg->fd[1]);
 		}
 		execve(arg->cmd_path, arg->cmd, arg->paths);
 	}
+	waitpid(i, NULL, 0);
 }
 
 
@@ -82,39 +84,24 @@ void	check_command(t_env	*env, t_arg *arg)
 			j = check_cmd(env, arg, arg->args[i]);
 			if (j == 1)
 			{
-				if (arg->args[i - 1] != NULL && arg->args[i + 1] != NULL)
+				pipe(arg->fd);
+				if (arg->args[i + 1] != NULL)
 				{
-					execute_func(env, arg, 2);
-				}
-				else if (arg->args[i + 1] != NULL)
-				{
-					pipe(arg->fd);
 					execute_func(env, arg, 1);
 				}
 				else
 				{
+					// printf("%s\n", arg->args[i]);
 					execute_func(env, arg, 0);
-					// close(arg->fd);
 				}
+				arg->in_fd = arg->fd[0];
+				close(arg->fd[1]);
 				i++;
 			}
 			else
+			{
 				return ;
+			}
 		}
 	}
 }
-
-		// else if (!ft_strcmp(arg->args[i], "<"))
-		// {
-		// 	i++;
-		// 	fd = open(arg->args[i], O_CREAT, O_WRONLY);
-		// 	dup2(fd, 0);
-		// 	i++;
-		// }
-		// else if (!ft_strcmp(arg->args[i], ">"))
-		// {
-		// 	i++;
-		// 	fd = open(arg->args[i], O_CREAT, O_WRONLY);
-		// 	dup2(fd, 1);
-		// 	i++;
-		// }

@@ -48,10 +48,8 @@ typedef struct s_env
 typedef struct s_token
 {
 	char id;// cmd
-	char *arg;//<< 
-	char **switchs;
-	char *dlm;
-	char *file;
+	char *data;
+	
 } t_token;
 
 
@@ -63,7 +61,9 @@ typedef struct s_arg
 	char	*cmd_path;
 	char	**cmd;
 	int		fd[2];
+	int		in_fd;
 	int		i;
+
 } t_arg;
 
 
