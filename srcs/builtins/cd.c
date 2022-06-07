@@ -132,5 +132,4 @@ void	cd_env(t_env *env, char	*str, char *arg)
 		}
 		check_oldpwd(env, oldpwd);
 	}
-	
 }

@@ -46,13 +46,14 @@ CFILES  = 	utils1.c srcs/builtins/echo.c srcs/builtins/env.c srcs/builtins/exit.
 			srcs/utils/utils2.c \
 			srcs/builtins/cd.c srcs/builtins/cd/cd_back.c srcs/builtins/cd/cd_path.c srcs/builtins/cd/cd_home.c srcs/builtins/cd/cd_root.c \
 			srcs/builtins/cd/cd_samdir.c srcs/builtins/cd/cd_dash.c \
-			srcs/pipes/pipe.c
+			srcs/pipes/pipe.c srcs/pipes/check_cmd.c \
+			srcs/signal/signals.c
 
 OFILES	= $(CFILES:.c=.o)
 
 CC	= gcc
 INT	= ms_head.h
-FLAGS = -lreadline  -I .brew/opt/readline/include
+FLAGS = -lreadline -I .brew/opt/readline/include
 NAME = minishell
 ARCHIVE = libft/libft.a
 

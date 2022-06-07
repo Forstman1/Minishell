@@ -26,7 +26,7 @@ void	export_env(t_env **env, char *str, char *find)
 	{
 		while (lst)
 		{
-			printf("declare -x %s=%s\n", lst->key, lst->value);
+			printf("declare -x %s=\"%s\"\n", lst->key, lst->value);
 			lst = lst->next;
 		}
 		return ;

@@ -11,22 +11,23 @@
 /* ************************************************************************** */
 
 #include <signal.h>
+#include "../../ms_head.h"
 
-void	handler(int signal)
-{
-	int i;
+// void	handler(int signal)
+// {
+// 	int i;
 
-	i = 0;
-	if (signal == SIGINT)
-		printf("\n");
-	else if (signal == SIGQUIT)
-		i++;
-}
+// 	i = 0;
+// 	if (signal == SIGINT)
+// 		printf("\nMinishell ");
+// 	else if (signal == SIGQUIT)
+// 		i++;
+// }
 
-void	signals()
-{
-	struct sigaction sa;
+// void	signals(void)
+// {
+// 	struct sigaction sa;
 
-	sa.sa_sigaction = handler;
-	sigaction(SIGINT, &sa, NULL);
-}
+// 	sa.sa_sigaction = handler;
+// 	sigaction(SIGINT, &sa, NULL);
+// }

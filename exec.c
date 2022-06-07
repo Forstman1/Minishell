@@ -46,7 +46,8 @@ int	main(int ac, char **av, char **env)
 	create_env(&envi, env, i);
 	while (1)
 	{
-		arg.str = readline("Minishell  ");
+		arg.str = readline("");
+		// signals();
 		arg.args = ft_split(arg.str, '|');
 		check_command(envi, &arg);
 		free(arg.str);

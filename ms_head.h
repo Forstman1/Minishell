@@ -95,17 +95,17 @@ void	cd_root(t_env *env, char *arg);
 void	cd_samdir(t_env *env, char *arg);
 void	cd_dash(t_env *env, char *arg);
 
-
+void	signals(void);
 
 /* --------------------------------- Pipes --------------------------------- */
 
 void	check_command(t_env	*env, t_arg *arg);
-void	check_cmd(t_env	*env, t_arg *arg, char *str);
 void	check_path(t_env	*env, t_arg *arg);
-void	execute_func(t_env	*env, t_arg *arg);
-int		builtins(t_env	*envi, char *str);
+void	execute_func(t_env	*env, t_arg *arg, int j);
+int		check_builtins(t_env	*envi, char *str);
+void	builtins(t_env	*envi, char *str);
 void	check_command(t_env	*env, t_arg *arg);
-void	check_cmd(t_env	*env, t_arg *arg, char *str);
+int		check_cmd(t_env	*env, t_arg *arg, char *str);
 
 
 #endif 
