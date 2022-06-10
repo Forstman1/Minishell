@@ -47,10 +47,12 @@ typedef struct s_env
 
 typedef struct s_token
 {
-	char id;// cmd
-	char *data;
-	
-} t_token;
+    struct s_token  *prev;
+    int             token;
+    int             red_from; // redirected from
+    char            *content;
+    struct s_token  *next;
+}    t_token;
 
 
 typedef struct s_arg
@@ -63,7 +65,6 @@ typedef struct s_arg
 	int		fd[2];
 	int		in_fd;
 	int		i;
-
 } t_arg;
 
 

@@ -46,11 +46,19 @@ int	main(int ac, char **av, char **env)
 	create_env(&envi, env, i);
 	while (1)
 	{
+		arg.str = NULL;
 		arg.str = readline("");
 		// signals();
+		arg.args = NULL;
 		arg.args = ft_split(arg.str, '|');
 		check_command(envi, &arg);
-		free(arg.str);
+		i = 0;
+		while (arg.args[i])
+		{
+			free(arg.args[i]);
+			arg.args[i] = NULL;
+			i++;
+		}
 		arg.str = NULL;
 	}
 	return (0);

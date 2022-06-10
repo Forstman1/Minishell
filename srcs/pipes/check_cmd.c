@@ -91,7 +91,7 @@ int	check_builtins(t_env	*envi, char *str)
 	int		id;
 
 	splited = ft_split(str, ' ');
-	if (!ft_strcmp1(splited[0], "pdw"))
+	if (!ft_strcmp1(splited[0], "pwd"))
 		return (1);
 	else if (!ft_strcmp(splited[0], "export"))
 		return (1);
