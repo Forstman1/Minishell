@@ -18,6 +18,7 @@
 #include <stdlib.h>
 #include <fcntl.h> 
 #include <stdio.h>
+#include <string.h>
 #include "libft/libft.h"
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -77,7 +78,7 @@ char	*get_keys(char *str, int c);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_strcmp1(char *s1, char *s2);
 char	*ft_strrchr1(char *str, int c);
-
+int		ft_strcmp2(char *s1, char *s2);
 
 
 /* --------------------------------- builtins --------------------------------- */

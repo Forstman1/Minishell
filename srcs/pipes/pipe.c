@@ -53,10 +53,12 @@ int	one_cmd(t_env	*env, t_arg *arg)
 			return (1);
 		}
 	}
+	else if (i == 0)
+		return (1);
 	return (0);
 }
 
-void	ft_dup(t_token *token, t_arg *arg, int j)
+void	ft_dup(t_arg *arg, int j)
 {
 	if (j == 1)
 	{
@@ -98,95 +100,95 @@ void	check_command(t_env	*env, t_arg *arg)
 		return ;
 	i = 0;
 	// check_redirection(arg);
-	// while (arg->args[i])
-	// {
-	// 	pipe(arg->fd);
-	// 	if (check_builtins(env, arg->args[i]))
-	// 	{
-	// 		id = fork();
-	// 		if (id == 0)
-	// 		{
-	// 			if (arg->args[i + 1] != NULL)
-	// 				ft_dup(arg, 1);
-	// 			else
-	// 				ft_dup(arg, 0);
-	// 			builtins(env, arg->args[i]);
-	// 			close(arg->fd[1]);
-	// 			exit(0);
-	// 		}
-	// 		i++;
-	// 	}
-	// 	else
-	// 	{
-	// 		j = check_cmd(env, arg, arg->args[i]);
-	// 		if (j == 1)
-	// 		{
-	// 			if (arg->args[i + 1] != NULL)
-	// 				execute_func(env, arg, 1);
-	// 			else
-	// 				execute_func(env, arg, 0);
-	// 			i++;
-	// 		}
-	// 		else
-	// 			return ;
-	// 	}
-	// 	arg->in_fd = arg->fd[0];
-	// 	close(arg->fd[1]);
-	// }
-	// close(arg->in_fd);
-	// close(arg->fd[0]);
-	t_token *token;
-
-	while (token)
+	while (arg->args[i])
 	{
-		if (token->token == 'c')
+		pipe(arg->fd);
+		if (check_builtins(env, arg->args[i]))
 		{
-			pipe(arg->fd);
-			if (check_builtins(env, token->content))
+			id = fork();
+			if (id == 0)
 			{
-				id = fork();
-				if (id == 0)
-				{
-					if (token->next != NULL)
-						ft_dup(token, arg, 1);
-					else
-						ft_dup(token, arg, 0);
-					builtins(env, token->content);
-					close(arg->fd[1]);
-					exit(0);
-				}
-				token = token->next;
+				if (arg->args[i + 1] != NULL)
+					ft_dup(arg, 1);
+				else
+					ft_dup(arg, 0);
+				builtins(env, arg->args[i]);
+				close(arg->fd[1]);
+				exit(0);
+			}
+			i++;
+		}
+		else
+		{
+			j = check_cmd(env, arg, arg->args[i]);
+			if (j == 1)
+			{
+				if (arg->args[i + 1] != NULL)
+					execute_func(env, arg, 1);
+				else
+					execute_func(env, arg, 0);
+				i++;
 			}
 			else
-			{
-				j = check_cmd(env, arg, token->content);
-				if (j == 1)
-				{
-					if (arg->args[i + 1] != NULL)
-						execute_func(env, arg, 1);
-					else
-						execute_func(env, arg, 0);
-					token = token->next;
-				}
-				else
-					return ;
-			}
-			arg->in_fd = arg->fd[0];
-			close(arg->fd[1]);
-		}
-		else if (token->token == '<')
-		{
-			if (!access(token->content, X_OK))
-			{
-				ft_putstr_fd("file not found", 2);
 				return ;
-			}
-			arg->in_fd = open(token->content, O_RDONLY);
-			token = token->next;
 		}
-		else if (token->token == '>')
-		{
-			
-		}
+		arg->in_fd = arg->fd[0];
+		close(arg->fd[1]);
 	}
+	close(arg->in_fd);
+	close(arg->fd[0]);
+	// t_token *token;
+
+	// while (token)
+	// {
+	// 	if (token->token == 'c')
+	// 	{
+	// 		pipe(arg->fd);
+	// 		if (check_builtins(env, token->content))
+	// 		{
+	// 			id = fork();
+	// 			if (id == 0)
+	// 			{
+	// 				if (token->next != NULL)
+	// 					ft_dup(token, arg, 1);
+	// 				else
+	// 					ft_dup(token, arg, 0);
+	// 				builtins(env, token->content);
+	// 				close(arg->fd[1]);
+	// 				exit(0);
+	// 			}
+	// 			token = token->next;
+	// 		}
+	// 		else
+	// 		{
+	// 			j = check_cmd(env, arg, token->content);
+	// 			if (j == 1)
+	// 			{
+	// 				if (arg->args[i + 1] != NULL)
+	// 					execute_func(env, arg, 1);
+	// 				else
+	// 					execute_func(env, arg, 0);
+	// 				token = token->next;
+	// 			}
+	// 			else
+	// 				return ;
+	// 		}
+	// 		arg->in_fd = arg->fd[0];
+	// 		close(arg->fd[1]);
+	// 	}
+	// 	else if (token->token == '<')
+	// 	{
+	// 		if (!access(token->content, X_OK))
+	// 		{
+	// 			ft_putstr_fd("file not found", 2);
+	// 			return ;
+	// 		}
+	// 		arg->in_fd = open(token->content, O_RDONLY);
+	// 		token = token->next;
+	// 	}
+	// 	else if (token->token == '>')
+	// 	{
+			
+	// 	}
+	// }
 }
