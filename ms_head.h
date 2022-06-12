@@ -86,6 +86,7 @@ int		ft_strcmp2(char *s1, char *s2);
 char	*pwd(t_env *env, int i);
 void	export_env(t_env **env, char *str, char *find);
 void	unset_env(t_env **env, char *str, char *find);
+void	echo_env(t_env *env, char **str);
 void	env(t_env *env);
 void	exit10(void);
 

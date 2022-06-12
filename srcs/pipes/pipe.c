@@ -84,6 +84,31 @@ void	check_redirection(t_arg *arg)
 	}
 }
 
+void	her_doc(t_token *token, t_arg *arg)
+{
+	int		i;
+	char	*str;
+	char	*tmp;
+
+	i = 0;
+	str = NULL;
+	tmp = NULL;
+	while (true)
+	{
+		str = readline("");
+		if (!ft_strcmp(str, token->content))
+		{
+			return ;
+		}
+		else
+		{
+			ft_putstr_fd(str, arg->in_fd);
+			free(str);
+			str = NULL;
+		}
+	}
+}
+
 void	check_command(t_env	*env, t_arg *arg)
 {
 	t_env	*lst;

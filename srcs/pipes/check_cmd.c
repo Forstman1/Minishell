@@ -94,6 +94,8 @@ void	builtins(t_env	*envi, char *str)
 		exit10();
 	else if (!ft_strcmp(splited[0], "cd"))
 		cd_env(envi, splited[0], splited[1]);
+	else if (!ft_strcmp(splited[0], "echo"))
+		echo_env(envi, splited);
 }
 
 int	check_builtins(t_env	*envi, char *str)
@@ -113,6 +115,8 @@ int	check_builtins(t_env	*envi, char *str)
 	else if (!ft_strcmp(splited[0], "exit"))
 		return (1);
 	else if (!ft_strcmp(splited[0], "cd"))
+		return (1);
+	else if (!ft_strcmp(splited[0], "echo"))
 		return (1);
 	return (0);
 }

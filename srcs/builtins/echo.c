@@ -12,18 +12,54 @@
 
 #include "../../ms_head.h"
 
-// void	echo(t_arg	*arg)
-// {
-// 	if (arg->line)
-// 		printf("%s\n", arg->line);
-// 	else
-// 		printf("\n");
-// }
+void	echo_env(t_env *env, char **str)
+{
+	int		i;
+	int		j;
+	t_env	*lst;
 
-// void	echo_option(t_arg	*arg)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	
-// }
+	i = 1;
+	j = 0;
+	lst = env;
+	if (!str[1])
+	{
+		ft_putstr_fd("\n", 1);
+		return ;
+	}
+	if (str[1][0] == '-' && str[1][1] == 'n')
+	{
+		j = 0;
+		i = 1;
+		while (str[i])
+		{
+			j = 0;
+			while (str[i][j])
+			{
+				if (str[i][j] == '-' && j == 0)
+					j++;
+				else if (str[i][j] != 'n')
+				{
+					j = 0;
+					while (str[i])
+					{
+						if (str[i + 1] != NULL)
+							printf("%s ", str[i]);
+						else
+							printf("%s", str[i]);
+						i++;
+					}
+					return ;
+				}
+				else if (str[i][j] == 'n')
+					j++;
+			}
+			i++;
+		}
+	}
+	i = 1;
+	while (str[i])
+	{
+		printf("%s\n", str[i]);
+		i++;
+	}
+}

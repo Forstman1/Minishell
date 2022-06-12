@@ -1,11 +1,9 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/sahafid/Desktop/Minishell'
 clear
- 
 echo "$TITLE"
 gcc -o utils1.o -c utils1.c
 gcc -o srcs/builtins/echo.o -c srcs/builtins/echo.c
- 
 gcc -o srcs/builtins/env.o -c srcs/builtins/env.c
 gcc -o srcs/builtins/exit.o -c srcs/builtins/exit.c
 gcc -o srcs/builtins/pwd.o -c srcs/builtins/pwd.c
@@ -23,7 +21,6 @@ gcc -o srcs/pipes/pipe.o -c srcs/pipes/pipe.c
 gcc -o srcs/pipes/check_cmd.o -c srcs/pipes/check_cmd.c
 gcc -o srcs/signal/signals.o -c srcs/signal/signals.c
 gcc -lreadline -I .brew/opt/readline/include  exec.c libft/libft.a utils1.c srcs/builtins/echo.c srcs/builtins/env.c srcs/builtins/exit.c srcs/builtins/pwd.c  srcs/builtins/export.c srcs/builtins/unset.c srcs/utils/utils2.c srcs/builtins/cd.c srcs/builtins/cd/cd_back.c srcs/builtins/cd/cd_path.c srcs/builtins/cd/cd_home.c srcs/builtins/cd/cd_root.c srcs/builtins/cd/cd_samdir.c srcs/builtins/cd/cd_dash.c srcs/pipes/pipe.c srcs/pipes/check_cmd.c srcs/signal/signals.c -o minishell -g
- 
 make clean
 make: Leaving directory `/Users/sahafid/Desktop/Minishell'
  
