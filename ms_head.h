@@ -64,6 +64,7 @@ typedef struct s_arg
 	char	*cmd_path;
 	char	**cmd;
 	int		fd[2];
+	char	**keys;
 	int		in_fd;
 	int		i;
 } t_arg;
@@ -84,7 +85,7 @@ int		ft_strcmp2(char *s1, char *s2);
 /* --------------------------------- builtins --------------------------------- */
 
 char	*pwd(t_env *env, int i);
-void	export_env(t_env **env, char *str, char *find);
+void	export_env(t_env **env, t_arg *arg, char *find);
 void	unset_env(t_env **env, char *str, char *find);
 void	echo_env(t_env *env, char **str);
 void	env(t_env *env);
@@ -106,7 +107,7 @@ void	check_command(t_env	*env, t_arg *arg);
 void	check_path(t_env	*env, t_arg *arg);
 void	execute_func(t_env	*env, t_arg *arg, int j);
 int		check_builtins(t_env	*envi, char *str);
-void	builtins(t_env	*envi, char *str);
+void	builtins(t_env	*envi, char *str, t_arg *arg);
 void	check_command(t_env	*env, t_arg *arg);
 int		check_cmd(t_env	*env, t_arg *arg, char *str);
 

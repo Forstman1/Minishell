@@ -49,7 +49,7 @@ int	one_cmd(t_env	*env, t_arg *arg)
 		i = 0;
 		if (check_builtins(env, arg->args[i]))
 		{
-			builtins(env, arg->args[i]);
+			builtins(env, arg->args[i], arg);
 			return (1);
 		}
 	}
@@ -93,20 +93,20 @@ void	her_doc(t_token *token, t_arg *arg)
 	i = 0;
 	str = NULL;
 	tmp = NULL;
-	while (true)
-	{
-		str = readline("");
-		if (!ft_strcmp(str, token->content))
-		{
-			return ;
-		}
-		else
-		{
-			ft_putstr_fd(str, arg->in_fd);
-			free(str);
-			str = NULL;
-		}
-	}
+	// while (true)
+	// {
+	// 	str = readline("");
+	// 	if (!ft_strcmp(str, token->content))
+	// 	{
+	// 		return ;
+	// 	}
+	// 	else
+	// 	{
+	// 		ft_putstr_fd(str, arg->in_fd);
+	// 		free(str);
+	// 		str = NULL;
+	// 	}
+	// }
 }
 
 void	check_command(t_env	*env, t_arg *arg)
@@ -137,7 +137,7 @@ void	check_command(t_env	*env, t_arg *arg)
 					ft_dup(arg, 1);
 				else
 					ft_dup(arg, 0);
-				builtins(env, arg->args[i]);
+				builtins(env, arg->args[i], arg);
 				close(arg->fd[1]);
 				exit(0);
 			}

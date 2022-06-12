@@ -21,7 +21,7 @@ void	unset_env(t_env **env, char *str, char *find)
 	lst = *env;
 	while (lst)
 	{
-		if (!ft_strncmp(lst->key, find, ft_strlen(lst->key)))
+		if (!ft_strcmp(lst->key, find))
 		{
 			if (!tmp)
 			{
