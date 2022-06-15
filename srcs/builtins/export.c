@@ -18,92 +18,73 @@ void	sorted_env(t_env *lst, t_arg *arg)
 {
 	t_env	*sort;
 	char	*tmp;
+	char	**keys;
 	int		i;
 	int		j;
 
 	i = 0;
 	sort = lst;
+	keys = NULL;
+	tmp = NULL;
 	while (sort)
 	{
 		i++;
 		sort = sort->next;
 	}
-	if (!arg->keys)
+	keys = (char**)malloc(sizeof(char*) * (i + 1));
+	sort = lst;
+	i = 0;
+	while (sort)
 	{
-		arg->keys = (char**)malloc(sizeof(char*) * (i + 1));
+		if (sort->key != NULL)
+			keys[i] = ft_strdup(sort->key);
+		else
+			keys[i] = NULL;
+		i++;
+		sort = sort->next;
+	}
+	keys[i] = NULL;
+	i = 0;
+	while (keys[i] != NULL)
+	{
+		j = 0;
+		while (keys[j] != NULL)
+		{
+			if (ft_strcmp2(keys[j], keys[i]) > 0)
+			{
+				tmp = keys[i];
+				keys[i] = keys[j];
+				keys[j] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	while (keys[i])
+	{
 		sort = lst;
-		i = 0;
 		while (sort)
 		{
-			arg->keys[i] = ft_strdup(sort->key);
-			i++;
+			if (!ft_strcmp(keys[i], sort->key))
+			{
+				if (sort->value == NULL)
+					printf("declare -x %s\n", keys[i]);
+				else
+					printf("declare -x %s=\"%s\"\n", keys[i], sort->value);
+				break ;
+			}
 			sort = sort->next;
 		}
-		i = 0;
-		while (arg->keys[i])
-		{
-			j = 0;
-			while (arg->keys[j])
-			{
-				if (ft_strcmp2(arg->keys[j], arg->keys[i]) > 0)
-				{
-					tmp = arg->keys[i];
-					arg->keys[i] = arg->keys[j];
-					arg->keys[j] = tmp;
-				}
-				j++;
-			}
-			i++;
-		}
-		i = 0;
-		while (arg->keys[i])
-		{
-			sort = lst;
-			while (sort)
-			{
-				if (!ft_strcmp(arg->keys[i], sort->key))
-				{
-					printf("declare -x %s=\"%s\"\n", arg->keys[i], sort->value);
-					break ;
-				}
-				sort = sort->next;
-			}
-			i++;
-		}
+		i++;
 	}
-	else
+	i = 0;
+	while (keys[i])
 	{
-		// while (arg->keys[i])
-		// {
-		// 	j = 0;
-		// 	while (arg->keys[j])
-		// 	{
-		// 		if (ft_strcmp2(arg->keys[j], arg->keys[i]) > 0)
-		// 		{
-		// 			tmp = arg->keys[i];
-		// 			arg->keys[i] = arg->keys[j];
-		// 			arg->keys[j] = tmp;
-		// 		}
-		// 		j++;
-		// 	}
-		// 	i++;
-		// }
-		i = 0;
-		while (arg->keys[i])
-		{
-			sort = lst;
-			while (sort)
-			{
-				if (!ft_strcmp(arg->keys[i], sort->key))
-				{
-					printf("declare -x %s=\"%s\"\n", arg->keys[i], sort->value);
-					break ;
-				}
-				sort = sort->next;
-			}
-			i++;
-		}
+		free(keys[i]);
+		i++;
 	}
+	free(keys);
 }
 
 int	check_keys(t_env *lst, char *str)
@@ -117,54 +98,13 @@ int	check_keys(t_env *lst, char *str)
 	return (1);
 }
 
-int check_equal(t_env *lst, char *str, t_arg *arg)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '=')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-void	add_to_export(char	*str, t_arg *arg)
-{
-	int		i;
-	char	**tmp;
-
-	i = 0;
-	tmp = NULL;
-	while (arg->keys[i])
-		i++;
-	tmp = arg->keys;
-	arg->keys = (char**)malloc(sizeof(char*) * (i + 2));
-	i = 0;
-	while (tmp[i])
-	{
-		arg->keys[i] = tmp[i];
-		i++;
-	}
-	arg->keys[i] = str;
-	arg->keys[i + 1] = NULL;
-	i = 0;
-	while (tmp[i])
-	{
-		free(tmp[i]);
-		i++;
-	}
-	free(tmp);
-	return ;
-}
 
 void	export_things(t_env *env, char	*find, t_arg *arg)
 {
 	int		i;
 	int		j;
 	t_env	*lst;
+	t_env	*lst1;
 	char	*tmp;
 	char	*key;
 	char	*value;
@@ -172,12 +112,11 @@ void	export_things(t_env *env, char	*find, t_arg *arg)
 	i = 0;
 	j = 0;
 	key = NULL;
+	lst1 = NULL;
 	value = NULL;
 	lst = env;
 	if (check_keys(lst, find))
 		return ;
-	if (check_equal(lst, find, arg))
-		add_to_export(find, arg);
 	else
 	{
 		while (find[i])
@@ -196,7 +135,12 @@ void	export_things(t_env *env, char	*find, t_arg *arg)
 			i++;
 		}
 		if (i == ft_strlen(find))
+		{
+			lst1 = NULL;
+			lst1 = ft_lstnew1(find, NULL);
+			ft_lstadd_back1(&env, lst1);
 			return ;
+		}
 		while (lst)
 		{
 			if (!ft_strncmp(lst->key, find, ft_strlen(lst->key)))
@@ -216,6 +160,7 @@ void	export_things(t_env *env, char	*find, t_arg *arg)
 			}
 			lst = lst->next;
 		}
+		lst = env;
 		if (j == 1)
 		{
 			value = ft_strdup(ft_strchr(find, '=') + 1);
@@ -233,8 +178,9 @@ void	export_things(t_env *env, char	*find, t_arg *arg)
 				}
 				i++;
 			}
-			lst = ft_lstnew1(key, value);
-			ft_lstadd_back1(&env, lst);
+			lst1 = NULL;
+			lst1 = ft_lstnew1(key, value);
+			ft_lstadd_back1(&env, lst1);
 		}
 		else
 		{
@@ -252,13 +198,14 @@ void	export_things(t_env *env, char	*find, t_arg *arg)
 				}
 				i++;
 			}
-			lst = ft_lstnew1(key, value);
-			ft_lstadd_back1(&env, lst);
+			lst1 = NULL;
+			lst1 = ft_lstnew1(key, value);
+			ft_lstadd_back1(&env, lst1);
 		}
 	}
 }
 
-void	export_env(t_env **env, t_arg *arg, char *find)
+void	export_env(t_env **env, t_arg *arg, char **find)
 {
 	t_env	*lst;
 	char	*key;
@@ -266,14 +213,20 @@ void	export_env(t_env **env, t_arg *arg, char *find)
 	int		i;
 	int		j;
 
-	i = 0;
+	i = 1;
 	j = 0;
 	lst = *env;
-	if (!find)
+	if (!find[1])
 	{
 		sorted_env(lst, arg);
 		return ;
 	}
 	else
-		export_things(lst, find, arg);
+	{
+		while (find[i])
+		{
+			export_things(lst, find[i], arg);
+			i++;
+		}
+	}
 }

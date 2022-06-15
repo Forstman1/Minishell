@@ -53,7 +53,7 @@ OFILES	= $(CFILES:.c=.o)
 
 CC	= gcc
 INT	= ms_head.h
-FLAGS = -lreadline -I .brew/opt/readline/include
+FLAGS = -lreadline -I .brew/opt/readline/include -fsanitize=address
 NAME = minishell
 ARCHIVE = libft/libft.a
 

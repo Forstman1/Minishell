@@ -16,13 +16,18 @@
 void	env(t_env *env)
 {
 	int		i;
+	int		j;
 	t_env	*lst;
 
 	i = 0;
+	j = 0;
 	lst = env;
 	while (lst)
 	{
-		printf("%s=%s\n", lst->key, lst->value);
+		if (lst->value == NULL)
+			j++;
+		else
+			printf("%s=%s\n", lst->key, lst->value);
 		lst = lst->next;
 		i++;
 	}

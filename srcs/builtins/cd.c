@@ -104,8 +104,6 @@ void	cd_env(t_env *env, char	*str, char *arg)
 	
 	if (!ft_strcmp(arg, NULL))
 		cd_home(env, arg);
-	else if (!ft_strcmp(arg, "-"))
-		cd_dash(env, arg);
 	else
 	{
 		if (chdir(arg))
@@ -119,6 +117,7 @@ void	cd_env(t_env *env, char	*str, char *arg)
 			{
 				if (lst->value)
 					oldpwd = lst->value;
+				dir = NULL;
 				lst->value = getcwd(dir, 9999);
 				i = 1;
 				break ;
