@@ -161,47 +161,25 @@ void	export_things(t_env *env, char	*find, t_arg *arg)
 			lst = lst->next;
 		}
 		lst = env;
+		value = ft_strdup(ft_strchr(find, '=') + 1);
+		key = ft_strdup(get_keys(find, '='));
 		if (j == 1)
-		{
-			value = ft_strdup(ft_strchr(find, '=') + 1);
-			key = ft_strdup(get_keys(find, '='));
 			key = get_keys(key, '+');
-			i = 0;
-			while (key[i])
-			{
-				if (key[i] == '+' || key[i] == '-')
-				{
-					ft_putstr_fd("error\n", 2);
-					free(key);
-					free(value);
-					return ;
-				}
-				i++;
-			}
-			lst1 = NULL;
-			lst1 = ft_lstnew1(key, value);
-			ft_lstadd_back1(&env, lst1);
-		}
-		else
+		i = 0;
+		while (key[i])
 		{
-			value = ft_strdup(ft_strchr(find, '=') + 1);
-			key = ft_strdup(get_keys(find, '='));
-			i = 0;
-			while (key[i])
+			if (key[i] == '+' || key[i] == '-')
 			{
-				if (key[i] == '+' || key[i] == '-')
-				{
-					ft_putstr_fd("error\n", 2);
-					free(key);
-					free(value);
-					return ;
-				}
-				i++;
+				ft_putstr_fd("error\n", 2);
+				free(key);
+				free(value);
+				return ;
 			}
-			lst1 = NULL;
-			lst1 = ft_lstnew1(key, value);
-			ft_lstadd_back1(&env, lst1);
+			i++;
 		}
+		lst1 = NULL;
+		lst1 = ft_lstnew1(key, value);
+		ft_lstadd_back1(&env, lst1);
 	}
 }
 
