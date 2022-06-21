@@ -12,7 +12,7 @@
 
 #include "../../ms_head.h"
 
-void	echo_env(t_env *env, char **str)
+void	echo_env(t_env *env, char **str, t_arg *arg)
 {
 	int		i;
 	int		j;
@@ -42,10 +42,21 @@ void	echo_env(t_env *env, char **str)
 					j = 0;
 					while (str[i])
 					{
-						if (str[i + 1] != NULL)
-							printf("%s ", str[i]);
+						if (!ft_strcmp("$?", str[i]))
+						{
+							if (str[i + 1] != NULL)
+								printf("%d ", status.exit_status);
+							else
+								printf("%d", status.exit_status);
+							status.exit_status = 0;
+						}
 						else
-							printf("%s", str[i]);
+						{
+							if (str[i + 1] != NULL)
+								printf("%s ", str[i]);
+							else
+								printf("%s", str[i]);
+						}
 						i++;
 					}
 					return ;
@@ -59,7 +70,17 @@ void	echo_env(t_env *env, char **str)
 	i = 1;
 	while (str[i])
 	{
-		printf("%s\n", str[i]);
+		if (!ft_strcmp("$?", str[i]))
+		{
+			if (str[i + 1] != NULL)
+				printf("%d ", status.exit_status);
+			else
+				printf("%d\n", status.exit_status);
+			status.exit_status = 0;
+		}
+		else
+			printf("%s\n", str[i]);
 		i++;
 	}
+	//arg->exit_status = 0;
 }

@@ -95,6 +95,7 @@ int	check_keys(t_env *lst, char *str)
 	if (ft_isalpha(str[0]) || str[0] == '_')
 		return (0);
 	ft_putstr_fd("error", 2);
+	status.exit_status = 1;
 	return (1);
 }
 
@@ -114,6 +115,7 @@ void	export_things(t_env *env, char	*find, t_arg *arg)
 	key = NULL;
 	lst1 = NULL;
 	value = NULL;
+	tmp = NULL;
 	lst = env;
 	if (check_keys(lst, find))
 		return ;
@@ -128,6 +130,7 @@ void	export_things(t_env *env, char	*find, t_arg *arg)
 				else if (find[i - 1] == '-')
 				{
 					ft_putstr_fd("Error\n", 2);
+					status.exit_status = 1;
 					return ;
 				}
 				break ;
@@ -137,7 +140,7 @@ void	export_things(t_env *env, char	*find, t_arg *arg)
 		if (i == ft_strlen(find))
 		{
 			lst1 = NULL;
-			lst1 = ft_lstnew1(find, NULL);
+			lst1 = ft_lstnew1(ft_strdup(find), NULL);
 			ft_lstadd_back1(&env, lst1);
 			return ;
 		}
@@ -153,7 +156,7 @@ void	export_things(t_env *env, char	*find, t_arg *arg)
 						free(tmp);
 				}
 				else
-					lst->value = ft_strchr(find, '=') + 1;
+					lst->value = ft_strdup(ft_strchr(find, '=') + 1);
 				if (!lst->value)
 					lst->value = NULL;
 				return ;
@@ -171,6 +174,7 @@ void	export_things(t_env *env, char	*find, t_arg *arg)
 			if (key[i] == '+' || key[i] == '-')
 			{
 				ft_putstr_fd("error\n", 2);
+				status.exit_status = 1;
 				free(key);
 				free(value);
 				return ;

@@ -13,7 +13,7 @@
 
 #include "../../../ms_head.h"
 
-void	cd_home(t_env *env, char *arg)
+void	cd_home(t_env *env, char *arg, t_arg *args)
 {
 	t_env	*lst;
 	char	*OLDPWD;
@@ -27,6 +27,7 @@ void	cd_home(t_env *env, char *arg)
 			if (chdir(lst->value))
 			{
 				printf("commad not found\n");
+				//args->check_status = 1;
 				return ;
 			}
 			home = lst->value;
@@ -37,6 +38,7 @@ void	cd_home(t_env *env, char *arg)
 	if (!home)
 	{
 		printf("commad not found\n");
+		//args->check_status = 1;
 		return ;
 	}
 	lst = env;
@@ -51,7 +53,7 @@ void	cd_home(t_env *env, char *arg)
 		}
 		lst = lst->next;
 	}
-	if (!pwd(env, 0))
+	if (!pwd(env, 0, args))
 	{
 		home = NULL;
 		lst = ft_lstnew1("PWD", getcwd(home, 9999));

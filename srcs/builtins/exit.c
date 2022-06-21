@@ -17,3 +17,13 @@ void	exit10(void)
 	printf("exit\n");
 	exit(0);
 }
+
+void	exit11(int	i)
+{
+	// if (ft_isdigit(i))
+	// {
+		printf("exit\n");
+		exit(i);
+	//}
+	
+}

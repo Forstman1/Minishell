@@ -90,7 +90,7 @@ void	check_oldpwd(t_env *env, char	*oldpwd)
 	ft_lstadd_back1(&env, lst);
 }
 
-void	cd_env(t_env *env, char	*str, char *arg)
+void	cd_env(t_env *env, char	*str, char *arg, t_arg *args)
 {
 	t_env	*lst;
 	char	*dir;
@@ -103,12 +103,13 @@ void	cd_env(t_env *env, char	*str, char *arg)
 	i = 0;
 	
 	if (!ft_strcmp(arg, NULL))
-		cd_home(env, arg);
+		cd_home(env, arg, args);
 	else
 	{
 		if (chdir(arg))
 		{
 			printf("not sush directory\n");
+			status.exit_status = 1;
 			return ;
 		}
 		while (lst)

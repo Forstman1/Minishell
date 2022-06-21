@@ -44,7 +44,13 @@ typedef struct s_env
 	struct s_env	*next;
 } t_env;
 
+typedef struct s_global
+{
+	int	exit_status;
 
+} t_global;
+
+t_global status;
 
 typedef struct s_token
 {
@@ -83,17 +89,18 @@ int		ft_strcmp2(char *s1, char *s2);
 
 /* --------------------------------- builtins --------------------------------- */
 
-char	*pwd(t_env *env, int i);
+char	*pwd(t_env *env, int i, t_arg *arg);
 void	export_env(t_env **env, t_arg *arg, char **find);
 void	unset_env(t_env **env, char *str, char *find);
-void	echo_env(t_env *env, char **str);
-void	env(t_env *env);
+void	echo_env(t_env *env, char **str, t_arg *arg);
+void	env(t_env *env, t_arg *arg);
 void	exit10(void);
+void	exit11(int	i);
 
-void	cd_env(t_env *env, char	*str, char *arg);
+void	cd_env(t_env *env, char	*str, char *arg, t_arg *args);
 void	cd_path(t_env *env, char *arg);
 void	cd_back(t_env *env, char *arg);
-void	cd_home(t_env *env, char *arg);
+void	cd_home(t_env *env, char *arg, t_arg *args);
 void	cd_root(t_env *env, char *arg);
 void	cd_samdir(t_env *env, char *arg);
 void	cd_dash(t_env *env, char *arg);

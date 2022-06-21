@@ -35,6 +35,7 @@ void	check_path(t_env	*env, t_arg *arg)
 	if (i != 1)
 	{
 		ft_putstr_fd("PATH not found\n", 2);
+		status.exit_status = 1;
 		exit(0);
 	}
 }
@@ -72,6 +73,7 @@ int	check_cmd(t_env	*env, t_arg *arg, char *str)
 			}
 			i++;
 		}
+		status.exit_status = 1;
 		ft_putstr_fd("command not found\n", 2);
 		return (0);
 	}
@@ -83,19 +85,24 @@ void	builtins(t_env	*envi, char *str, t_arg *arg)
 
 	splited = ft_split(str, ' ');
 	if (!ft_strcmp1(splited[0], "pwd"))
-		pwd(envi, 1);
+		pwd(envi, 1, arg);
 	else if (!ft_strcmp(splited[0], "export"))
 		export_env(&envi, arg, splited);
 	else if (!ft_strcmp(splited[0], "unset"))
 		unset_env(&envi, splited[0], splited[1]);
 	else if (!ft_strcmp1(splited[0], "env"))
-		env(envi);
+		env(envi, arg);
 	else if (!ft_strcmp(splited[0], "exit"))
-		exit10();
+	{
+		if (splited[1] != NULL)
+			exit11(ft_atoi(splited[1]));
+		else
+			exit10();
+	}
 	else if (!ft_strcmp(splited[0], "cd"))
-		cd_env(envi, splited[0], splited[1]);
+		cd_env(envi, splited[0], splited[1], arg);
 	else if (!ft_strcmp(splited[0], "echo"))
-		echo_env(envi, splited);
+		echo_env(envi, splited, arg);
 }
 
 int	check_builtins(t_env	*envi, char *str)

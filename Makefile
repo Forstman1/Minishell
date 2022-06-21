@@ -44,8 +44,7 @@ export TITLE
 
 CFILES  = 	utils1.c srcs/builtins/echo.c srcs/builtins/env.c srcs/builtins/exit.c srcs/builtins/pwd.c  srcs/builtins/export.c srcs/builtins/unset.c \
 			srcs/utils/utils2.c \
-			srcs/builtins/cd.c srcs/builtins/cd/cd_back.c srcs/builtins/cd/cd_path.c srcs/builtins/cd/cd_home.c srcs/builtins/cd/cd_root.c \
-			srcs/builtins/cd/cd_samdir.c srcs/builtins/cd/cd_dash.c \
+			srcs/builtins/cd.c srcs/builtins/cd/cd_home.c \
 			srcs/pipes/pipe.c srcs/pipes/check_cmd.c \
 			srcs/signal/signals.c
 
@@ -60,7 +59,7 @@ ARCHIVE = libft/libft.a
 all : $(NAME)
 
 $(NAME) : title $(OFILES) exec.c 
-	@$(CC) $(FLAGS)  exec.c $(ARCHIVE) $(CFILES) -o minishell -g
+	@$(CC) $(FLAGS)  exec.c $(ARCHIVE) $(OFILES) -o minishell 
 	@make clean
 
 %.o:%.c

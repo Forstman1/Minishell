@@ -12,6 +12,8 @@
 
 #include "ms_head.h"
 
+// t_global status;
+
 void	create_env(t_env **env, char **envirement, int i)
 {
 	t_env	*lst;
@@ -45,6 +47,7 @@ int	main(int ac, char **av, char **env)
 	i = 0;
 	while (env[i])
 		i++;
+	status.exit_status = 0;
 	create_env(&envi, env, i);
 	while (1)
 	{

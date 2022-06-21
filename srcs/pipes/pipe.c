@@ -34,7 +34,9 @@ void	execute_func(t_env	*env, t_arg *arg, int j)
 		}
 		execve(arg->cmd_path, arg->cmd, arg->paths);
 	}
-	waitpid(i, NULL, 0);
+	waitpid(i, &status.exit_status, 0);
+	if (status.exit_status != 0)
+		status.exit_status = 1;
 }
 
 int	one_cmd(t_env	*env, t_arg *arg)
@@ -162,58 +164,4 @@ void	check_command(t_env	*env, t_arg *arg)
 	}
 	close(arg->in_fd);
 	close(arg->fd[0]);
-	// t_token *token;
-
-	// while (token)
-	// {
-	// 	if (token->token == 'c')
-	// 	{
-	// 		pipe(arg->fd);
-	// 		if (check_builtins(env, token->content))
-	// 		{
-	// 			id = fork();
-	// 			if (id == 0)
-	// 			{
-	// 				if (token->next != NULL)
-	// 					ft_dup(token, arg, 1);
-	// 				else
-	// 					ft_dup(token, arg, 0);
-	// 				builtins(env, token->content);
-	// 				close(arg->fd[1]);
-	// 				exit(0);
-	// 			}
-	// 			token = token->next;
-	// 		}
-	// 		else
-	// 		{
-	// 			j = check_cmd(env, arg, token->content);
-	// 			if (j == 1)
-	// 			{
-	// 				if (arg->args[i + 1] != NULL)
-	// 					execute_func(env, arg, 1);
-	// 				else
-	// 					execute_func(env, arg, 0);
-	// 				token = token->next;
-	// 			}
-	// 			else
-	// 				return ;
-	// 		}
-	// 		arg->in_fd = arg->fd[0];
-	// 		close(arg->fd[1]);
-	// 	}
-	// 	else if (token->token == '<')
-	// 	{
-	// 		if (!access(token->content, X_OK))
-	// 		{
-	// 			ft_putstr_fd("file not found", 2);
-	// 			return ;
-	// 		}
-	// 		arg->in_fd = open(token->content, O_RDONLY);
-	// 		token = token->next;
-	// 	}
-	// 	else if (token->token == '>')
-	// 	{
-			
-	// 	}
-	// }
 }

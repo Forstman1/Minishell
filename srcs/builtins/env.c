@@ -13,7 +13,7 @@
 
 #include "../../ms_head.h"
 
-void	env(t_env *env)
+void	env(t_env *env, t_arg *arg)
 {
 	int		i;
 	int		j;
@@ -27,13 +27,16 @@ void	env(t_env *env)
 		if (lst->value == NULL)
 			j++;
 		else
+		{
 			printf("%s=%s\n", lst->key, lst->value);
+			i++;
+		}
 		lst = lst->next;
-		i++;
 	}
 	if (i == 0)
 	{
-		printf("env not set\n");
+		ft_putstr_fd("env not set\n", 2);
+		status.exit_status = 1;
 		return ;
 	}
 }

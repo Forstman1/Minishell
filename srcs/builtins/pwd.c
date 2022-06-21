@@ -13,7 +13,7 @@
 
 #include "../../ms_head.h"
 
-char	*pwd(t_env *env, int i)
+char	*pwd(t_env *env, int i, t_arg *arg)
 {
 	t_env *lst;
 
@@ -32,6 +32,7 @@ char	*pwd(t_env *env, int i)
 			{
 				if (i == 1)
 					printf("pwd is not set\n");
+				status.exit_status = 1;
 				return (NULL);
 			}
 		}
