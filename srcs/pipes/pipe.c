@@ -67,9 +67,14 @@ void	ft_dup(t_arg *arg, int j)
 		dup2(arg->fd[1], 1);
 		dup2(arg->in_fd, 0);
 		close(arg->fd[1]);
+		close(arg->fd[0]);
 	}
 	else
+	{
+		close(arg->fd[1]);
+		close(arg->fd[0]);
 		dup2(arg->in_fd, 0);
+	}
 }
 
 void	check_redirection(t_arg *arg)
@@ -111,6 +116,17 @@ void	her_doc(t_token *token, t_arg *arg)
 	// }
 }
 
+void	redirection(t_arg *arg, int i)
+{
+	char	**splited;
+
+	splited = ft_split(arg->args[i], ' ');
+	if (splitd[0][0] == '<')
+	{
+		arg->in_fd = open(splited[1], );
+	}
+}
+
 void	check_command(t_env	*env, t_arg *arg)
 {
 	t_env	*lst;
@@ -145,6 +161,8 @@ void	check_command(t_env	*env, t_arg *arg)
 			}
 			i++;
 		}
+		else if (arg->args[i][0] == '<' || arg->args[i][0] == '>')
+			redirection(arg, i);
 		else
 		{
 			j = check_cmd(env, arg, arg->args[i]);
